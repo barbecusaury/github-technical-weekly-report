@@ -1,5 +1,7 @@
 # GitHub技术周报
 
+中文 | [English](#english)
+
 `github-technical-weekly-report` 是一个 Codex skill，用于生成、维护和发布单文件版 GitHub 技术周报 HTML。它面向 GitHub 一周热榜、一个月热榜和飙升榜这类排行榜页面，要求产物可以直接打开，内联 CSS/JS，不依赖本地构建流程。
 
 ## 适用场景
@@ -44,3 +46,54 @@ node scripts\verify-report.mjs
 ```
 
 如果只使用本 skill 仓库，可重点检查 `SKILL.md`、`agents/openai.yaml` 和 `references/` 是否完整；真正的 HTML 报告验证脚本通常位于调用该 skill 的周报项目中。
+
+---
+
+# English
+
+[中文](#github技术周报) | English
+
+`github-technical-weekly-report` is a Codex skill for creating, maintaining, and publishing a standalone GitHub technical weekly report as a single HTML file. It is designed for leaderboard-style reports covering weekly trending repositories, monthly trending repositories, and fast-rising repositories. The output should open directly in a browser with inline CSS and JavaScript, without a local build step.
+
+## Use Cases
+
+- Generate a weekly GitHub technical leaderboard page.
+- Fix or enhance an existing HTML weekly report.
+- Add Simplified Chinese, Traditional Chinese, and English language switching.
+- Maintain localized repository summaries, modal project introductions, problem statements, and usage guidance.
+- Publish the report or the skill to GitHub and verify the files on the remote repository page.
+
+## Key Capabilities
+
+- Preserves a restrained technical-editorial leaderboard style instead of a marketing landing-page layout.
+- Supports three report sections: weekly trending, monthly trending, and surging repositories.
+- Shows the top 10 entries directly and folds ranks 11-20 behind an expandable disclosure.
+- Keeps modal interactions accessible: close button, backdrop click, Esc key, and keyboard focus handling.
+- Ensures Chinese locales use localized list summaries and modal "Project brief" content instead of falling back to English.
+- Verifies that the HTML file exists, inline scripts parse, language buttons exist, and key interaction hooks are present.
+
+## Repository Structure
+
+```text
+.
+├── SKILL.md
+├── agents/
+│   └── openai.yaml
+└── references/
+    ├── github-upload-via-chrome.md
+    ├── intro.en.md
+    ├── intro.zh-CN.md
+    └── intro.zh-Hant.md
+```
+
+## Usage
+
+Ask Codex to use `$github-technical-weekly-report`, then provide the target HTML file or request a new GitHub weekly report. After editing, run the project verification script. If publishing to GitHub, confirm the target repository, branch, and file paths before committing or uploading through the browser.
+
+## Local Verification
+
+```powershell
+node scripts\verify-report.mjs
+```
+
+If you are only working with this skill repository, focus on checking that `SKILL.md`, `agents/openai.yaml`, and `references/` are complete. The actual HTML report verification script usually lives in the project that uses this skill.
