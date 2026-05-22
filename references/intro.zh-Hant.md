@@ -13,4 +13,8 @@
 
 ## 使用方式
 
-讓 Codex 使用 `$github-technical-weekly-report`，並提供目標 HTML 檔案或說明要新生成一份週報。更新後應執行本地驗證腳本；如果要上傳 GitHub，應確認目標倉庫、分支和檔案路徑，再提交或網頁上傳。
+讓支援 skill 的 agent 載入 `github-technical-weekly-report`，並提供目標 HTML 檔案或說明要新生成一份週報。更新後應執行本地驗證腳本；如果要上傳 GitHub，應確認目標倉庫、分支和檔案路徑，再透過 GitHub connector、Git CLI 或網頁上傳。
+
+## 通用性
+
+通用核心是 `SKILL.md` 和 `references/`。`agents/openai.yaml` 只是 OpenAI/Codex 的可選 UI metadata，其他 agent 平台可以忽略。

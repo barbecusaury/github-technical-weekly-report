@@ -1,13 +1,13 @@
 ---
 name: github-technical-weekly-report
-description: Use when Codex needs to create, update, internationalize, verify, package, or publish a standalone GitHub technical weekly report HTML page, especially a leaderboard with zh-Hans, zh-Hant, and English UI, localized repository summaries, accessible modal details, and GitHub browser upload requirements.
+description: Use when an AI coding agent needs to create, update, internationalize, verify, package, or publish a standalone GitHub technical weekly report HTML page, especially a leaderboard with zh-Hans, zh-Hant, and English UI, localized repository summaries, accessible modal details, and GitHub publishing requirements.
 ---
 
 # GitHub Technical Weekly Report
 
 ## Overview
 
-Implement and maintain a GitHub technical weekly report as a standalone HTML page without introducing a build step. Keep leaderboard content, modal details, and skill documentation consistent across zh-Hans, zh-Hant, and English.
+Implement and maintain a GitHub technical weekly report as a standalone HTML page without introducing a build step. Keep leaderboard content, modal details, and skill documentation consistent across zh-Hans, zh-Hant, and English. The core instructions are platform-neutral: any agent that can read this `SKILL.md`, edit files, run local checks, and publish to GitHub can use the workflow.
 
 ## Workflow
 
@@ -20,7 +20,7 @@ Implement and maintain a GitHub technical weekly report as a standalone HTML pag
 7. Preserve existing interactions. If the page already has dialogs, keyboard handling, or fold or unfold controls, do not regress them while adding i18n.
 8. Re-run local verification after patching. At minimum confirm the file exists, the inline script parses, the expected language buttons are present, and modal project introductions use the localized summary path.
 9. If the user also wants the workflow reusable, create or update this skill in the workspace or requested skill folder.
-10. If the user wants the result uploaded to GitHub, use Chrome browser automation against the user's signed-in browser session when available; if the web editor is blocked but a Git remote is available, use Git and verify the remote page afterward.
+10. If the user wants the result uploaded to GitHub, use the safest authenticated path available in the current agent environment: GitHub connector, Git CLI, authenticated browser automation, or web upload. Always verify the remote page or branch afterward.
 
 ## HTML Editing Rules
 
@@ -52,16 +52,16 @@ Implement and maintain a GitHub technical weekly report as a standalone HTML pag
   - required headings and sections still exist
   - list summaries and modal project introductions are localized in zh-Hans and zh-Hant
 
-## GitHub Upload Through Chrome
+## GitHub Publishing
 
-- Use Chrome when the user explicitly wants browser-based GitHub upload or when the repository destination depends on their logged-in session.
-- Follow the Chrome skill bootstrap and connection checks before acting.
-- Prefer the user's already-open GitHub tab if it exists; claim it instead of opening redundant tabs.
-- If the repository is not obvious from local context, discover it from the user's open tabs or current browser context before uploading.
+- Prefer a GitHub connector or Git CLI when credentials and remotes are already configured.
+- Use authenticated browser upload when the repository destination depends on the user's logged-in web session or the user explicitly requests browser-based upload.
+- If the current platform has a browser-specific skill, connector, or plugin, follow that platform's bootstrap and connection checks before acting.
+- If the repository is not obvious from local context, discover it from the user's provided URL, open tabs, current browser context, or Git remotes before uploading.
 - Upload or edit only the intended files. Do not create unrelated commits or repository content.
 - Keep the final GitHub tab open only if it is the deliverable page the user may want to inspect after the turn.
 
 ## References
 
-- Read [references/github-upload-via-chrome.md](references/github-upload-via-chrome.md) when the task includes publishing through GitHub in the browser.
+- Read [references/github-upload-via-chrome.md](references/github-upload-via-chrome.md) only when the current environment is Codex with the Chrome plugin and the task includes publishing through GitHub in the browser.
 - Read [references/intro.zh-CN.md](references/intro.zh-CN.md), [references/intro.zh-Hant.md](references/intro.zh-Hant.md), or [references/intro.en.md](references/intro.en.md) when the user asks for a human-facing explanation of this skill.

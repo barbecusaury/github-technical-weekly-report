@@ -13,4 +13,8 @@ This skill generates, maintains, and publishes a standalone GitHub technical wee
 
 ## Usage
 
-Ask Codex to use `$github-technical-weekly-report` and provide the target HTML file, or ask it to generate a new weekly report. After edits, run the local verification script. For GitHub publishing, confirm the target repository, branch, and file paths before committing or uploading through the browser.
+Ask a skill-capable agent to load `github-technical-weekly-report` and provide the target HTML file, or ask it to generate a new weekly report. After edits, run the local verification script. For GitHub publishing, confirm the target repository, branch, and file paths before using a GitHub connector, Git CLI, or browser upload.
+
+## Portability
+
+The portable core is `SKILL.md` plus `references/`. `agents/openai.yaml` is optional OpenAI/Codex UI metadata and can be ignored by other agent platforms.

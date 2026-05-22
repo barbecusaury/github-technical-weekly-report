@@ -2,7 +2,13 @@
 
 中文 | [English](#english)
 
-`github-technical-weekly-report` 是一个 Codex skill，用于生成、维护和发布单文件版 GitHub 技术周报 HTML。它面向 GitHub 一周热榜、一个月热榜和飙升榜这类排行榜页面，要求产物可以直接打开，内联 CSS/JS，不依赖本地构建流程。
+`github-technical-weekly-report` 是一个通用 AI agent skill，用于生成、维护和发布单文件版 GitHub 技术周报 HTML。它面向 GitHub 一周热榜、一个月热榜和飙升榜这类排行榜页面，要求产物可以直接打开，内联 CSS/JS，不依赖本地构建流程。
+
+## 通用性说明
+
+这个 skill 的核心是 `SKILL.md` 和 `references/`，不绑定某一个 agent 平台。只要你的 agent 支持读取 Markdown skill、编辑文件、运行本地检查、并通过 GitHub connector、Git CLI 或已登录浏览器发布内容，就可以复用。
+
+`agents/openai.yaml` 是 OpenAI/Codex 的可选 UI 元数据，用于显示名称、短描述和默认提示词；其他平台可以忽略它，只读取 `SKILL.md`。
 
 ## 适用场景
 
@@ -37,7 +43,7 @@
 
 ## 使用方式
 
-在 Codex 中调用 `$github-technical-weekly-report`，并提供目标 HTML 文件，或说明要新生成一份 GitHub 周报。修改后应运行项目内验证脚本；如果要发布到 GitHub，应确认目标仓库、分支和文件路径，再提交或网页上传。
+在支持 skill 的 agent 中调用或加载 `github-technical-weekly-report`，并提供目标 HTML 文件，或说明要新生成一份 GitHub 周报。修改后应运行项目内验证脚本；如果要发布到 GitHub，应确认目标仓库、分支和文件路径，再通过 GitHub connector、Git CLI 或网页上传。
 
 ## 本地验证建议
 
@@ -53,7 +59,13 @@ node scripts\verify-report.mjs
 
 [中文](#github技术周报) | English
 
-`github-technical-weekly-report` is a Codex skill for creating, maintaining, and publishing a standalone GitHub technical weekly report as a single HTML file. It is designed for leaderboard-style reports covering weekly trending repositories, monthly trending repositories, and fast-rising repositories. The output should open directly in a browser with inline CSS and JavaScript, without a local build step.
+`github-technical-weekly-report` is a portable AI-agent skill for creating, maintaining, and publishing a standalone GitHub technical weekly report as a single HTML file. It is designed for leaderboard-style reports covering weekly trending repositories, monthly trending repositories, and fast-rising repositories. The output should open directly in a browser with inline CSS and JavaScript, without a local build step.
+
+## Portability
+
+The portable core is `SKILL.md` plus the `references/` directory. It does not require one specific agent platform. Any agent that can read Markdown skills, edit files, run local checks, and publish through a GitHub connector, Git CLI, or authenticated browser can reuse it.
+
+`agents/openai.yaml` is optional OpenAI/Codex UI metadata for display name, short description, and default prompt. Other platforms can ignore it and read `SKILL.md` directly.
 
 ## Use Cases
 
@@ -88,7 +100,7 @@ node scripts\verify-report.mjs
 
 ## Usage
 
-Ask Codex to use `$github-technical-weekly-report`, then provide the target HTML file or request a new GitHub weekly report. After editing, run the project verification script. If publishing to GitHub, confirm the target repository, branch, and file paths before committing or uploading through the browser.
+Ask a skill-capable agent to load `github-technical-weekly-report`, then provide the target HTML file or request a new GitHub weekly report. After editing, run the project verification script. If publishing to GitHub, confirm the target repository, branch, and file paths before using a GitHub connector, Git CLI, or browser upload.
 
 ## Local Verification
 
