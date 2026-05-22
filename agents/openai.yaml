@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub技术周报"
+  short_description: "Build and internationalize a GitHub weekly HTML report"
+  default_prompt: "Use $github-technical-weekly-report to update a GitHub weekly report HTML page, add zh-Hans, zh-Hant, and English switching, then publish it through Chrome."
