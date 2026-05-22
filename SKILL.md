@@ -1,13 +1,13 @@
 ---
 name: github-technical-weekly-report
-description: Build, update, and publish a GitHub technical weekly report as a standalone single-file HTML page. Add zh-Hans, zh-Hant, and English language switching with inline CSS and JS, verify the updated file locally, and publish the report or the skill itself to a GitHub repository through the user's Chrome session. Use when Codex needs to maintain a GitHub weekly leaderboard page, internationalize a standalone report, package the workflow as a reusable skill, or upload the result through browser automation.
+description: Use when Codex needs to create, update, internationalize, verify, package, or publish a standalone GitHub technical weekly report HTML page, especially a leaderboard with zh-Hans, zh-Hant, and English UI, localized repository summaries, accessible modal details, and GitHub browser upload requirements.
 ---
 
 # GitHub Technical Weekly Report
 
 ## Overview
 
-Implement and maintain a GitHub technical weekly report as a standalone HTML page without introducing a build step, then package the workflow as a reusable skill and publish through Chrome when the user wants the result uploaded to GitHub.
+Implement and maintain a GitHub technical weekly report as a standalone HTML page without introducing a build step. Keep leaderboard content, modal details, and skill documentation consistent across zh-Hans, zh-Hant, and English.
 
 ## Workflow
 
@@ -16,10 +16,11 @@ Implement and maintain a GitHub technical weekly report as a standalone HTML pag
 3. Add exactly three language buttons in the UI: `zh-Hans`, `zh-Hant`, and `EN`.
 4. Add a client-side locale state and rerender logic rather than duplicating pages.
 5. Translate structural UI first: title, subtitle, labels, section headings, disclosure text, modal labels, footer notices, and button text.
-6. Preserve existing interactions. If the page already has dialogs, keyboard handling, or fold or unfold controls, do not regress them while adding i18n.
-7. Re-run local verification after patching. At minimum confirm the file exists, the inline script parses, and the expected language buttons are present.
-8. If the user also wants the workflow reusable, create or update this skill in the workspace or requested skill folder.
-9. If the user wants the result uploaded to GitHub, use Chrome browser automation against the user's signed-in browser session rather than a synthetic fallback.
+6. Localize repository-facing copy next: row summaries, modal project introductions, caution text, and fallback-source notes. Do not leave Chinese locales showing English project briefs unless the source text is a proper noun, command, or product name.
+7. Preserve existing interactions. If the page already has dialogs, keyboard handling, or fold or unfold controls, do not regress them while adding i18n.
+8. Re-run local verification after patching. At minimum confirm the file exists, the inline script parses, the expected language buttons are present, and modal project introductions use the localized summary path.
+9. If the user also wants the workflow reusable, create or update this skill in the workspace or requested skill folder.
+10. If the user wants the result uploaded to GitHub, use Chrome browser automation against the user's signed-in browser session when available; if the web editor is blocked but a Git remote is available, use Git and verify the remote page afterward.
 
 ## HTML Editing Rules
 
@@ -27,6 +28,7 @@ Implement and maintain a GitHub technical weekly report as a standalone HTML pag
 - Add element ids or stable hooks only where needed for translation updates.
 - Keep `document.title` stable if the user explicitly requires a fixed browser title; otherwise it may follow the active locale.
 - Store locale strings in a compact object keyed by locale.
+- Store repository-specific localized summaries in a map keyed by canonical `owner/repo` so the list and modal can share the same copy.
 - Reuse existing render functions if possible. If not, add a second script layer that overrides or wraps the existing rendering safely.
 - Preserve mobile layout. Language buttons should wrap cleanly and never force horizontal overflow.
 
@@ -37,6 +39,7 @@ Implement and maintain a GitHub technical weekly report as a standalone HTML pag
 - Update `document.documentElement.lang` on switch.
 - Update `aria-label`, modal headings, disclosure text, and other assistive strings with the same locale change.
 - If modal content is open during a language switch, rerender the modal content in place instead of forcing the user to reopen it.
+- Route modal project introductions through a `localizedSummary(entry)`-style helper. Avoid `entry.summary` fallbacks for zh-Hans or zh-Hant unless no translation exists and the limitation is explicit.
 
 ## Verification
 
@@ -47,6 +50,7 @@ Implement and maintain a GitHub technical weekly report as a standalone HTML pag
   - inline JS parses successfully
   - existing keyboard handlers such as `Escape` still exist
   - required headings and sections still exist
+  - list summaries and modal project introductions are localized in zh-Hans and zh-Hant
 
 ## GitHub Upload Through Chrome
 
@@ -60,3 +64,4 @@ Implement and maintain a GitHub technical weekly report as a standalone HTML pag
 ## References
 
 - Read [references/github-upload-via-chrome.md](references/github-upload-via-chrome.md) when the task includes publishing through GitHub in the browser.
+- Read [references/intro.zh-CN.md](references/intro.zh-CN.md), [references/intro.zh-Hant.md](references/intro.zh-Hant.md), or [references/intro.en.md](references/intro.en.md) when the user asks for a human-facing explanation of this skill.
